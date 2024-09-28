@@ -523,6 +523,7 @@ public class DeathOnTheIsle extends BasicQuestHelper
 		interrogatePavoAgain.addDialogStep("No.");
 
 		accuseAdala = new NpcStep(this, NpcID.ADALA, new WorldPoint(1446, 2933, 2), "Accuse Adala of the crime, ready for an easy fight. You can use Protect from Melee to negate all damage.");
+		accuseAdala.addAlternateNpcs(NpcID.ADALA_13824);
 		accuseAdala.addDialogStep("Accuse Adala.");
 
 		// TODO: helper steps to climb upstairs?
