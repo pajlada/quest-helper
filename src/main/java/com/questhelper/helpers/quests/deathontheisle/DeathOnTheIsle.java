@@ -134,6 +134,8 @@ public class DeathOnTheIsle extends BasicQuestHelper
 	private DetailedQuestStep inspectShippingContract;
 	private NpcStep returnToTheGuards2;
 	private NpcStep talkToGuardsAgainToTellThemYouAreReady;
+	private ObjectStep climbStairsF0ToF1;
+	private ObjectStep climbStairsF1ToF2;
 	private NpcStep interrogateConstantiniusAgain;
 	private NpcStep interrogateXocotlaAgain;
 	private NpcStep interrogateCozyacAgain;
@@ -163,6 +165,7 @@ public class DeathOnTheIsle extends BasicQuestHelper
 	private Zone villaCellar;
 	private Zone villaTopFloor;
 	private Zone villaMiddleFloor;
+	private Zone villaGroundFloor;
 	private Zone theatreCellar;
 
 	/// Requirements
@@ -193,6 +196,7 @@ public class DeathOnTheIsle extends BasicQuestHelper
 	private ZoneRequirement inVillaCellar;
 	private ZoneRequirement inVillaTopFloor;
 	private ZoneRequirement inVillaMiddleFloor;
+	private ZoneRequirement inVillaGroundFloor;
 	private ZoneRequirement inTheatreCellar;
 	private ItemRequirement wineLabels;
 	private ItemRequirement threateningNote;
@@ -277,7 +281,7 @@ public class DeathOnTheIsle extends BasicQuestHelper
 		villaCellar = new Zone(new WorldPoint(1432, 9312, 0), new WorldPoint(1461, 9342, 0));
 		villaTopFloor = new Zone(new WorldPoint(1437, 2926, 2), new WorldPoint(1449, 2941, 2));
 		villaMiddleFloor = new Zone(new WorldPoint(1437, 2926, 1), new WorldPoint(1449, 2941, 1));
-
+		villaGroundFloor = new Zone(new WorldPoint(1427, 2903, 0), new WorldPoint(1480, 2946, 0));
 		theatreCellar = new Zone(new WorldPoint(1461, 9338, 0), new WorldPoint(1469, 9325, 0));
 	}
 
@@ -312,6 +316,7 @@ public class DeathOnTheIsle extends BasicQuestHelper
 		inVillaCellar = new ZoneRequirement(villaCellar);
 		inVillaTopFloor = new ZoneRequirement(villaTopFloor);
 		inVillaMiddleFloor = new ZoneRequirement(villaMiddleFloor);
+		inVillaGroundFloor = new ZoneRequirement(villaGroundFloor);
 		inTheatreCellar = new ZoneRequirement(theatreCellar);
 
 		/// States
@@ -377,8 +382,8 @@ public class DeathOnTheIsle extends BasicQuestHelper
 
 		/// 4 + 6
 		var enterUniformHouse = new ObjectStep(this, ObjectID.HOUSE_WINDOW, new WorldPoint(1401, 2967, 0), "Enter the house to the north. If the Wandering Guard bothers you, wait until he steps away before entering.");
-		var leaveUniformHouse = new ObjectStep(this, ObjectID.HOUSE_WINDOW, new WorldPoint(1401, 2967, 0), "Leave the house with the butler's uniform", uniform);
-		stealUniformFromWardrobe = new ObjectStep(this, ObjectID.WARDROBE_54723, new WorldPoint(1399, 2969, 0), "Steal the butler's uniform from the wardrobe");
+		var leaveUniformHouse = new ObjectStep(this, ObjectID.HOUSE_WINDOW, new WorldPoint(1401, 2967, 0), "Leave the house with the butler's uniform.", uniform);
+		stealUniformFromWardrobe = new ObjectStep(this, ObjectID.WARDROBE_54723, new WorldPoint(1399, 2969, 0), "Steal the butler's uniform from the wardrobe.");
 		stealUniformFromWardrobe.addSubSteps(enterUniformHouse);
 		talkToPatziAfterStealingUniform = new NpcStep(this, NpcID.PATZI, new WorldPoint(1414, 2937, 0), "Talk to Patzi after stealing the butler's uniform.", uniform);
 		talkToPatziAfterStealingUniform.addSubSteps(leaveUniformHouse);
@@ -388,7 +393,7 @@ public class DeathOnTheIsle extends BasicQuestHelper
 		stealButlerUniform.addStep(inButlerCostumeHouse, stealUniformFromWardrobe);
 
 		/// 8
-		continueTalkingToPatzi = new NpcStep(this, NpcID.PATZI, new WorldPoint(1414, 2937, 0), "Continue talking to Patzi", uniform);
+		continueTalkingToPatzi = new NpcStep(this, NpcID.PATZI, new WorldPoint(1414, 2937, 0), "Continue talking to Patzi.", uniform);
 		talkToPatziAfterStealingUniform.addSubSteps(continueTalkingToPatzi);
 
 		/// 10 + 12
@@ -478,10 +483,10 @@ public class DeathOnTheIsle extends BasicQuestHelper
 		pickpocketPavo = new NpcStep(this, NpcID.PAVO_13832, new WorldPoint(1445, 2934, 0), "Pickpocket Pavo until you find a drinking flask.", drinkingFlask);
 		pickpocketXocotla = new NpcStep(this, NpcID.XOCOTLA_13830, new WorldPoint(1445, 2934, 0), "Pickpocket Xocotla until you find a shipping contract.", shippingContract);
 
-		inspectWineLabels = new DetailedQuestStep(this, "Inspect the Wine labels in your inventory", wineLabels.highlighted());
-		inspectThreateningNote = new DetailedQuestStep(this, "Inspect the Threatening note in your inventory", threateningNote.highlighted());
-		inspectDrinkingFlask = new DetailedQuestStep(this, "Inspect the Drinking flask in your inventory", drinkingFlask.highlighted());
-		inspectShippingContract = new DetailedQuestStep(this, "Inspect the Shipping contract in your inventory", shippingContract.highlighted());
+		inspectWineLabels = new DetailedQuestStep(this, "Inspect the Wine labels in your inventory.", wineLabels.highlighted());
+		inspectThreateningNote = new DetailedQuestStep(this, "Inspect the Threatening note in your inventory.", threateningNote.highlighted());
+		inspectDrinkingFlask = new DetailedQuestStep(this, "Inspect the Drinking flask in your inventory.", drinkingFlask.highlighted());
+		inspectShippingContract = new DetailedQuestStep(this, "Inspect the Shipping contract in your inventory.", shippingContract.highlighted());
 
 		returnToTheGuards2 = returnToTheGuards.copy();
 
@@ -505,9 +510,11 @@ public class DeathOnTheIsle extends BasicQuestHelper
 		talkToGuardsAgainToTellThemYouAreReadyStep.addStep(not(inVilla), returnToButlerAndHeadInside);
 
 		/// 28 + 30
-		// TODO: what happens if you accuse the wrong person?
+		climbStairsF0ToF1 = new ObjectStep(this, ObjectID.STAIRCASE_54713, new WorldPoint(1442, 2935, 0), "Climb up the staircases to the top floor.");
+		climbStairsF1ToF2 = new ObjectStep(this, ObjectID.STAIRCASE_54713, new WorldPoint(1445, 2938, 1), "Climb up the staircase to the top floor.");
 		interrogateConstantiniusAgain = new NpcStep(this, NpcID.CONSTANTINIUS, new WorldPoint(1446, 2931, 2), "Interrogate Constantinius.");
 		interrogateConstantiniusAgain.addDialogStep("No.");
+		interrogateConstantiniusAgain.addSubSteps(climbStairsF0ToF1, climbStairsF1ToF2);
 		interrogateXocotlaAgain = new NpcStep(this, NpcID.XOCOTLA, new WorldPoint(1444, 2928, 2), "Interrogate Xocotla.");
 		interrogateXocotlaAgain.addDialogStep("No.");
 		interrogateCozyacAgain = new NpcStep(this, NpcID.COZYAC, new WorldPoint(1442, 2929, 2), "Interrogate Cozyac.");
@@ -521,6 +528,8 @@ public class DeathOnTheIsle extends BasicQuestHelper
 		// TODO: helper steps to climb upstairs?
 		speakToSuspects = new ConditionalStep(this, accuseAdala);
 		speakToSuspects.addStep(not(inVilla), returnToButlerAndHeadInside);
+		speakToSuspects.addStep(inVillaGroundFloor, climbStairsF0ToF1);
+		speakToSuspects.addStep(inVillaMiddleFloor, climbStairsF1ToF2);
 		speakToSuspects.addStep(not(interrogatedConstantiniusAgain), interrogateConstantiniusAgain);
 		speakToSuspects.addStep(not(interrogatedXocotlaAgain), interrogateXocotlaAgain);
 		speakToSuspects.addStep(not(interrogatedCozyacAgain), interrogateCozyacAgain);
