@@ -137,6 +137,10 @@ public enum QuestVarbits
 	QUEST_HOPESPEARS_WILL(13619),
 	HIS_FAITHFUL_SERVANTS(14973),
 	BARBARIAN_TRAINING(9613),
+	/**
+	 * fake mini-quest varbits, these don't hold the completion value.
+	 */
+	CRACK_THE_CLUE_II(0),
 
 	// Fake miniquests
 	KNIGHT_WAVES_TRAINING_GROUNDS(3909),
