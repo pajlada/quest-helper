@@ -78,6 +78,7 @@ import com.questhelper.helpers.miniquests.barbariantraining.BarbarianTraining;
 import com.questhelper.helpers.miniquests.hisfaithfulservants.BarrowsHelper;
 import com.questhelper.helpers.miniquests.hisfaithfulservants.HisFaithfulServants;
 import com.questhelper.helpers.mischelpers.allneededitems.AllNeededItems;
+import com.questhelper.helpers.mischelpers.cracktheclueii.CrackTheClueII;
 import com.questhelper.helpers.mischelpers.herbrun.HerbRun;
 import com.questhelper.helpers.mischelpers.strongholdofsecurity.StrongholdOfSecurity;
 import com.questhelper.helpers.quests.akingdomdivided.AKingdomDivided;
@@ -517,6 +518,8 @@ public enum QuestHelperQuest
 		QuestDetails.Difficulty.MINIQUEST),
 	BALLOON_TRANSPORT_GRAND_TREE(new GrandTreeBalloonFlight(), "Balloon Transport - Grand Tree", QuestVarbits.BALLOON_TRANSPORT_GRAND_TREE, 1, QuestDetails.Type.MINIQUEST,
 		QuestDetails.Difficulty.MINIQUEST),
+	CRACK_THE_CLUE_II(new CrackTheClueII(), "Crack The Clue II", QuestVarbits.CRACK_THE_CLUE_II, 5,
+		QuestDetails.Type.MINIQUEST, QuestDetails.Difficulty.MINIQUEST),
 
 
 	// Achievement diaries

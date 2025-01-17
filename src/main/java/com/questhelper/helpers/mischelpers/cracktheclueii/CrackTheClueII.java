@@ -81,11 +81,15 @@ public class CrackTheClueII extends BasicQuestHelper
 
 		Map<Integer, QuestStep> steps = new HashMap<>();
 
-		week1Steps = new ConditionalStep(this, week1Dig);
+		week1Steps.setLockingCondition(ornateglovesbootscollected);
 		week2Steps = new ConditionalStep(this, week2Dig);
+		week2Steps.setLockingCondition(ornatelegscollected);
 		week3Steps = new ConditionalStep(this, week3Emotes);
+		week3Steps.setLockingCondition(ornatetopcollected);
 		week4Steps = new ConditionalStep(this, week4Dig);
+		week4Steps.setLockingCondition(ornatecapecollected);
 		finalSteps = new ConditionalStep(this, finalEmotes);
+		finalSteps.setLockingCondition(ornatehelmcollected);
 
 
 		ConditionalStep allSteps = new ConditionalStep(this, week1Steps);
@@ -93,7 +97,7 @@ public class CrackTheClueII extends BasicQuestHelper
 		allSteps.addStep(nor(ornatelegscollected), week2Steps);
 		allSteps.addStep(nor(ornatetopcollected), week3Steps);
 		allSteps.addStep(nor(ornatecapecollected), week4Steps);
-		allSteps.addStep(nor(ornatecapecollected), finalSteps);
+		allSteps.addStep(nor(ornatehelmcollected), finalSteps);
 		allSteps.setCheckAllChildStepsOnListenerCall(true);
 
 		steps.put(0, allSteps);
@@ -111,37 +115,37 @@ public class CrackTheClueII extends BasicQuestHelper
 	public void setupConditions()
 	{
 		ornateglovesbootscollected = new RuneliteRequirement(
-			configManager, ConfigKeys.CRACK_THE_CLUE_II_WEEK_ONE_ITEM.getKey(),
+			getConfigManager(), ConfigKeys.CRACK_THE_CLUE_II_WEEK_ONE_ITEM.getKey(),
 			new Conditions(true, LogicType.OR,
-				new WidgetTextRequirement(ComponentID.DIARY_TEXT, true, "You find some beautifully ornate gloves and boots.")
+				new WidgetTextRequirement(ComponentID.DIALOG_SPRITE_TEXT, true, "You find some beautifully ornate gloves and boots.")
 			)
 		);
 
 		ornatelegscollected = new RuneliteRequirement(
-			configManager, ConfigKeys.CRACK_THE_CLUE_II_WEEK_TWO_ITEM.getKey(),
+			getConfigManager(), ConfigKeys.CRACK_THE_CLUE_II_WEEK_TWO_ITEM.getKey(),
 			new Conditions(true, LogicType.OR,
-				new WidgetTextRequirement(ComponentID.DIARY_TEXT, true, "You find some beautifully ornate leg armour.")
+				new WidgetTextRequirement(ComponentID.DIALOG_SPRITE_TEXT, true, "You find some beautifully ornate leg armour.")
 			)
 		);
 
 		ornatetopcollected = new RuneliteRequirement(
-			configManager, ConfigKeys.CRACK_THE_CLUE_II_WEEK_THREE_ITEM.getKey(),
+			getConfigManager(), ConfigKeys.CRACK_THE_CLUE_II_WEEK_THREE_ITEM.getKey(),
 			new Conditions(true, LogicType.OR,
 				new ChatMessageRequirement("Some beautifully ornate armour mysteriously appears.")
 			)
 		);
 
 		ornatecapecollected = new RuneliteRequirement(
-			configManager, ConfigKeys.CRACK_THE_CLUE_II_WEEK_FOUR_ITEM.getKey(),
+			getConfigManager(), ConfigKeys.CRACK_THE_CLUE_II_WEEK_FOUR_ITEM.getKey(),
 			new Conditions(true, LogicType.OR,
-				new WidgetTextRequirement(ComponentID.DIARY_TEXT, true, "You find a beautifully ornate cape.")
+				new WidgetTextRequirement(ComponentID.DIALOG_SPRITE_TEXT, true, "You find a beautifully ornate cape.")
 			)
 		);
 
 		ornatehelmcollected = new RuneliteRequirement(
-			configManager, ConfigKeys.CRACK_THE_CLUE_II_WEEK_FINAL_ITEM.getKey(),
+			getConfigManager(), ConfigKeys.CRACK_THE_CLUE_II_WEEK_FINAL_ITEM.getKey(),
 			new Conditions(true, LogicType.OR,
-				new WidgetTextRequirement(ComponentID.DIARY_TEXT, true, "Here, take this. But tell no one I was here.")
+				new WidgetTextRequirement(ComponentID.DIALOG_NPC_TEXT, true, "Here, take this. But tell no one I was here.")
 			)
 		);
 
@@ -195,7 +199,7 @@ public class CrackTheClueII extends BasicQuestHelper
 		finalEmotes = new EmoteStep(this, finalSteps, new WorldPoint(3246, 3362, 0),
 			"Perform the bow emote, then yes emote, then clap emote between the trees south of Varrock, east of the stone circle. Have nothing equipped and only a plain pizza, wooden shield and cheese in your inventory.",
 			plainPizza, woodenShield, cheese);
-		finalEmotes.addTileMarker(new WorldPoint(3035, 3518, 0), SpriteID.TAB_EMOTES);
+		finalEmotes.addTileMarker(new WorldPoint(3246, 3362, 0), SpriteID.TAB_EMOTES);
 	}
 
 	@Override
