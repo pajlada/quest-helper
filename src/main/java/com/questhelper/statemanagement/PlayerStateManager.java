@@ -63,6 +63,9 @@ public class PlayerStateManager
 	@Inject
 	BarbarianTrainingStateTracker barbarianTrainingStateTracker;
 
+	@Inject
+	CrackTheClueIIStateTracker crackTheClueIIStateTracker;
+
 	List<KeyringRequirement> keyringKeys;
 
 	WorldPoint lastPlayerPos = null;
@@ -79,11 +82,13 @@ public class PlayerStateManager
 		keyringKeys = KeyringCollection.allKeyRequirements(configManager);
 		AchievementDiaryStepManager.setup(configManager);
 		barbarianTrainingStateTracker.startUp(configManager, eventBus);
+		crackTheClueIIStateTracker.startUp(configManager, eventBus);
 	}
 
 	public void shutDown()
 	{
 		barbarianTrainingStateTracker.shutDown(eventBus);
+		crackTheClueIIStateTracker.shutDown(eventBus);
 	}
 
 	@Subscribe
