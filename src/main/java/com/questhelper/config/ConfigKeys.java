@@ -59,7 +59,14 @@ public enum ConfigKeys
 	BARBARIAN_TRAINING_HARPOONED_FISH("barbariantrainingharpoonedfish"),
 	BARBARIAN_TRAINING_MADE_POTION("barbariantrainingmadepotion"),
 	BARBARIAN_TRAINING_MADE_SPEAR("barbariantrainingmadespear"),
-	BARBARIAN_TRAINING_MADE_HASTA("barbariantrainingmadehasta");
+	BARBARIAN_TRAINING_MADE_HASTA("barbariantrainingmadehasta"),
+
+	// Finished CRACK THE CLUE II Enums
+	CRACK_THE_CLUE_II_WEEK_ONE_ITEM("cracktheclueornateglovesbootscollected"),
+	CRACK_THE_CLUE_II_WEEK_TWO_ITEM("cracktheclueornatelegscollected"),
+	CRACK_THE_CLUE_II_WEEK_THREE_ITEM("cracktheclueornateornatetopcollected"),
+	CRACK_THE_CLUE_II_WEEK_FOUR_ITEM("cracktheclueornatecapecollected"),
+	CRACK_THE_CLUE_II_WEEK_FINAL_ITEM("cracktheclueornatehelmcollected");
 
 	@Getter
 	final String key;
