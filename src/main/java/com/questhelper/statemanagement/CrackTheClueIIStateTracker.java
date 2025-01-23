@@ -56,14 +56,14 @@ public class CrackTheClueIIStateTracker
 		ornateglovesbootscollected = new RuneliteRequirement(
 			configManager, ConfigKeys.CRACK_THE_CLUE_II_WEEK_ONE_ITEM.getKey(),
 			new Conditions(true, LogicType.OR,
-				new WidgetTextRequirement(ComponentID.DIARY_TEXT, true, "You find some beautifully ornate gloves and boots.")
+				new WidgetTextRequirement(ComponentID.DIALOG_SPRITE_TEXT, true, "You find some beautifully ornate gloves and boots.")
 			)
 		);
 
 		ornatelegscollected = new RuneliteRequirement(
 			configManager, ConfigKeys.CRACK_THE_CLUE_II_WEEK_TWO_ITEM.getKey(),
 			new Conditions(true, LogicType.OR,
-				new WidgetTextRequirement(ComponentID.DIARY_TEXT, true, "You find some beautifully ornate leg armour.")
+				new WidgetTextRequirement(ComponentID.DIALOG_SPRITE_TEXT, true, "You find some beautifully ornate leg armour.")
 			)
 		);
 
@@ -77,14 +77,14 @@ public class CrackTheClueIIStateTracker
 		ornatecapecollected = new RuneliteRequirement(
 			configManager, ConfigKeys.CRACK_THE_CLUE_II_WEEK_FOUR_ITEM.getKey(),
 			new Conditions(true, LogicType.OR,
-				new WidgetTextRequirement(ComponentID.DIARY_TEXT, true, "You find a beautifully ornate cape.")
+				new WidgetTextRequirement(ComponentID.DIALOG_SPRITE_TEXT, true, "You find a beautifully ornate cape.")
 			)
 		);
 
 		ornatehelmcollected = new RuneliteRequirement(
 			configManager, ConfigKeys.CRACK_THE_CLUE_II_WEEK_FINAL_ITEM.getKey(),
 			new Conditions(true, LogicType.OR,
-				new WidgetTextRequirement(ComponentID.DIARY_TEXT, true, "Here, take this. But tell no one I was here.")
+				new WidgetTextRequirement(ComponentID.DIALOG_NPC_TEXT, true, "Here, take this. But tell no one I was here.")
 			)
 		);
 
