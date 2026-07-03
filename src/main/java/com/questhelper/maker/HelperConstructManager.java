@@ -416,7 +416,14 @@ public class HelperConstructManager
 		{
 			addAction(menuEntries, ConstructMenuCapture.MENU_OPTION_PREFIX + " Add Object Step", target, () ->
 			{
-				addStep(StepKind.OBJECT, rawId, option, target, clickedWorldPoint);
+				if (config.constructModeMode() == QuestHelperConfig.QuestHelperMakerMode.FULL)
+				{
+					addStep(StepKind.OBJECT, rawId, option, target, clickedWorldPoint);
+				}
+				else
+				{
+					copyStep(StepKind.OBJECT, rawId, option, target, clickedWorldPoint);
+				}
 			});
 			DraftStep selected = selectedConstructMenuStepOrNull();
 			if (selected != null && selected.getKind() == StepKind.OBJECT)
@@ -570,26 +577,41 @@ public class HelperConstructManager
 			sendGameMessage("Quest Helper Construct: could not create new zone row.");
 			return;
 		}
-		List<ZoneSlotRow> zones = getZoneSlotsInQuestOrderForEditor();
-		if (zones.isEmpty())
+
+		if (config.constructModeMode() == QuestHelperConfig.QuestHelperMakerMode.FULL)
 		{
-			sendGameMessage("Quest Helper Construct: zone row created but corners could not be applied.");
-			return;
-		}
-		ZoneSlotRow created = zones.get(zones.size() - 1);
-		boolean ok = updateZoneSlotForOrderSlot(
-			created.getOrderSlotId(),
-			formatWorldPointForField(c1),
-			formatWorldPointForField(tilePoint),
-			"");
-		if (ok)
-		{
-			clearSelectedZoneOverlay();
-			sendGameMessage("Quest Helper Construct: created zone from " + formatWorldPoint(c1) + " to " + formatWorldPoint(tilePoint) + ".");
+			List<ZoneSlotRow> zones = getZoneSlotsInQuestOrderForEditor();
+			if (zones.isEmpty())
+			{
+				sendGameMessage("Quest Helper Construct: zone row created but corners could not be applied.");
+				return;
+			}
+			ZoneSlotRow created = zones.get(zones.size() - 1);
+			boolean ok = updateZoneSlotForOrderSlot(
+				created.getOrderSlotId(),
+				formatWorldPointForField(c1),
+				formatWorldPointForField(tilePoint),
+				"");
+			if (ok)
+			{
+				clearSelectedZoneOverlay();
+				sendGameMessage("Quest Helper Construct: created zone from " + formatWorldPoint(c1) + " to " + formatWorldPoint(tilePoint) + ".");
+			}
+			else
+			{
+				sendGameMessage("Quest Helper Construct: could not apply zone corners.");
+			}
 		}
 		else
 		{
-			sendGameMessage("Quest Helper Construct: could not apply zone corners.");
+			clearSelectedZoneOverlay();
+			String stepString = "new Zone(new WorldPoint(" +
+				formatWorldPoint(c1) +
+				"), new WorldPoint(" +
+				formatWorldPoint(tilePoint) +
+				"));";
+			Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(stepString), null);
+			sendGameMessage("Quest Helper Construct: copied zone to clipboard.");
 		}
 	}
 
@@ -668,6 +690,28 @@ public class HelperConstructManager
 		currentDraft.getStepDefinitions().add(step);
 		saveDraftToConfig();
 		sendGameMessage("Quest Helper Construct: added " + kind.name().toLowerCase(Locale.ROOT) + " step (" + rawId + ") at " + formatWorldPoint(clickedWorldPoint) + ". Use Add Step in Order View to place it in the quest order.");
+	}
+
+	private void copyStep(StepKind kind, int rawId, String option, String target, WorldPoint clickedWorldPoint)
+	{
+		ensureDraftLoaded();
+
+		DraftStep step = new DraftStep();
+		step.setStepId(UUID.randomUUID().toString());
+		step.setKind(kind);
+		step.setRawId(rawId);
+		step.setOption(option);
+		step.setTargetText(target);
+		step.setInstructionText(instructionText(option, target));
+		step.setPanelName("Captured Steps");
+		step.setSuggestedVarName(HelperScaffoldGenerator.toVarName(option + " " + target, "step"));
+		step.setWorldPoint(clickedWorldPoint);
+
+		StringBuilder stepString = new StringBuilder();
+		HelperScaffoldGenerator.appendNpcObjectDefinitionSetup(stepString, step, null, step.getInstructionText(), List.of());
+		Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(stepString.toString()), null);
+
+		sendGameMessage("Quest Helper Construct: copied " + kind.name().toLowerCase(Locale.ROOT) + " step (" + rawId + ") at " + formatWorldPoint(clickedWorldPoint) + ".");
 	}
 
 	private boolean isDuplicateStep(StepKind kind, int rawId, String targetText, WorldPoint worldPoint)
