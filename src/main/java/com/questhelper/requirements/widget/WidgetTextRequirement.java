@@ -218,11 +218,6 @@ public class WidgetTextRequirement extends SimpleRequirement
 		return false;
 	}
 
-	public void checkWidgetText(Client client)
-	{
-		hasPassed = hasPassed || checkWidget(client);
-	}
-
 	@Nonnull
 	@Override
 	public String getDisplayText()
