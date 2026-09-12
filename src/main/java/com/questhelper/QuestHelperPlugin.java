@@ -39,7 +39,6 @@ import com.questhelper.questinfo.QuestHelperQuest;
 import com.questhelper.requirements.item.ItemRequirement;
 import com.questhelper.runeliteobjects.Cheerer;
 import com.questhelper.runeliteobjects.GlobalFakeObjects;
-import com.questhelper.runeliteobjects.RuneliteConfigSetter;
 import com.questhelper.runeliteobjects.extendedruneliteobjects.RuneliteObjectManager;
 import com.questhelper.statemanagement.PlayerStateManager;
 import com.questhelper.tools.Icon;
