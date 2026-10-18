@@ -29,6 +29,7 @@ import com.questhelper.collections.ItemCollections;
 import com.questhelper.panel.PanelDetails;
 import com.questhelper.questhelpers.ComplexStateQuestHelper;
 import com.questhelper.questinfo.QuestHelperQuest;
+import com.questhelper.requirements.ComplexRequirement;
 import com.questhelper.requirements.Requirement;
 import com.questhelper.requirements.item.ItemRequirement;
 import com.questhelper.requirements.item.ItemRequirements;
@@ -158,7 +159,7 @@ public class MorytaniaEasy extends ComplexStateQuestHelper
 		notKillWerewolf = new VarplayerRequirement(VarPlayerID.MORYTANIA_ACHIEVEMENT_DIARY, false, 10);
 		notRestorePrayer = new VarplayerRequirement(VarPlayerID.MORYTANIA_ACHIEVEMENT_DIARY, false, 11);
 
-		chisel = new ItemRequirement("Chisel", ItemID.CHISEL).showConditioned(notCraftSnelm).isNotConsumed();
+		chisel = new ItemRequirement("Chisel", ItemCollections.CHISEL).showConditioned(notCraftSnelm).isNotConsumed();
 		snailShell = new ItemRequirement("Blamish snail shell", ItemCollections.SNAIL_SHELLS)
 			.showConditioned(notCraftSnelm);
 		thinSnail = new ItemRequirement("Thin snail", ItemID.SNAIL_CORPSE1).showConditioned(notCookSnail);
@@ -240,7 +241,7 @@ public class MorytaniaEasy extends ComplexStateQuestHelper
 			"Use the Hay sack on the Bronze Spear.", haySack.highlighted(), bronzeSpear.highlighted());
 		useWatermelonOnSack = new DetailedQuestStep(this,
 			"Use the watermelon on the Hay Sack to make the Scarecrow.", scarecrowStep2.highlighted(), watermelon.highlighted());
-		placeScarecrow = new ObjectStep(this, 7850, new WorldPoint(3602, 3526, 0),
+		placeScarecrow = new ObjectStep(this, ObjectID.FARMING_FLOWER_PATCH_4, new WorldPoint(3602, 3526, 0),
 			"Place a scarecrow at the Morytania flower patch, West of Port Phasmatys.", scarecrow.highlighted());
 		placeScarecrow.addIcon(ItemID.SCARECROW_COMPLETE);
 
@@ -291,15 +292,16 @@ public class MorytaniaEasy extends ComplexStateQuestHelper
 
 		if (questHelperPlugin.getPlayerStateManager().getAccountType().isAnyIronman())
 		{
-			// 47 Farming is required to get a Watermelon for the scarecrow step
-			reqs.add(new SkillRequirement(Skill.FARMING, 47, true));
+			// 47 Farming or completion of Troubled Tortugans is required to get a Watermelon for the scarecrow step
+			reqs.add(new ComplexRequirement(LogicType.OR, "47 Farming OR Finished Troubled Tortugans for a watermelon",
+				new QuestRequirement(QuestHelperQuest.TROUBLED_TORTUGANS, QuestState.FINISHED),
+				new SkillRequirement(Skill.FARMING, 47, true)));
 		}
 		else
 		{
 			reqs.add(new SkillRequirement(Skill.FARMING, 23, true));
 		}
 
-		reqs.add(ghostsAhoy);
 		reqs.add(natureSpirit);
 
 		return reqs;

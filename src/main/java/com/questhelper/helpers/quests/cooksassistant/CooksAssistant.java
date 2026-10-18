@@ -116,6 +116,7 @@ public class CooksAssistant extends BasicQuestHelper
 		egg.setConditionToHide(or(hasTurnedInEgg, hasTurnedInEverything));
 		egg.canBeObtainedDuringQuest();
 		milk = new ItemRequirement("Bucket of milk", ItemID.BUCKET_MILK);
+		milk.addAlternates(ItemID.BOTTOMLESS_MILK_BUCKET_FILLED);
 		milk.setConditionToHide(or(hasTurnedInMilk, hasTurnedInEverything));
 		milk.canBeObtainedDuringQuest();
 		flour = new ItemRequirement("Pot of flour", ItemID.POT_FLOUR);
@@ -179,7 +180,7 @@ public class CooksAssistant extends BasicQuestHelper
 		finishQuest = new NpcStep(this, NpcID.COOK, new WorldPoint(3206, 3214, 0),
 			"Give the Cook in Lumbridge Castle's kitchen the required items to finish the quest.",
 			egg, milk, flour);
-		finishQuest.addAlternateNpcs(NpcID.POH_SERVANT_COOK_WOMAN);
+		finishQuest.addAlternateNpcs(NpcID.COOK);
 		finishQuest.addDialogSteps("What's wrong?", "Can I help?", "Yes.");
 	}
 

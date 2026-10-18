@@ -157,7 +157,7 @@ public class FaladorEasy extends ComplexStateQuestHelper
 
 		//Required
 		bucket = new ItemRequirement("Bucket", ItemID.BUCKET_EMPTY).showConditioned(notFilledWater).isNotConsumed();
-		tiara = new ItemRequirement("Silver Tiara", ItemID.TIARA).showConditioned(notMindTiara);
+		tiara = new ItemRequirement("Tiara", ItemID.TIARA).showConditioned(notMindTiara);
 		mindTalisman = new ItemRequirement("Mind Talisman", ItemID.MIND_TALISMAN).showConditioned(notMindTiara);
 		hammer = new ItemRequirement("Hammer", ItemID.HAMMER).showConditioned(new Conditions(LogicType.OR, notMotherloadMine, notBluriteLimbs)).isNotConsumed();
 		pickaxe = new ItemRequirement("Any Pickaxe", ItemCollections.PICKAXES)
@@ -175,8 +175,8 @@ public class FaladorEasy extends ComplexStateQuestHelper
 		explorersRing = new TeleportItemRequirement("Explorers Ring (2) or above.", ItemID.LUMBRIDGE_RING_MEDIUM).isNotConsumed();
 		explorersRing.addAlternates(ItemID.LUMBRIDGE_RING_HARD, ItemID.LUMBRIDGE_RING_ELITE);
 
-		hasBluriteOre = bluriteOre.alsoCheckBank(questBank);
-		hasBluriteBar = bluriteBar.alsoCheckBank(questBank);
+		hasBluriteOre = bluriteOre.alsoCheckBank();
+		hasBluriteBar = bluriteBar.alsoCheckBank();
 
 		inMindAltar = new ZoneRequirement(mindAltar);
 		inBluriteDungeon = new ZoneRequirement(bluriteDungeon);
@@ -252,7 +252,7 @@ public class FaladorEasy extends ComplexStateQuestHelper
 
 		//Claim a security book from the Security Guard at Port Sarim Jail.
 		climbLadderPortSarimJail = new ObjectStep(this, ObjectID.PRISON_LADDER_UP, new WorldPoint(3010, 3184, 0),
-			"Climb in the Port Sarim Jail to speak to the Security Guard.");
+			"Climb up the ladder in the Port Sarim Jail to speak to the Security Guard.");
 		getSecurityBook = new NpcStep(this, NpcID.SOS_GUARD, new WorldPoint(3013, 3192, 1),
 			"Speak to the Security Guard in the Port Sarim Jail to get a Security Book.");
 		getSecurityBook.addDialogStep("If you're a security guard, let's talk about security.");

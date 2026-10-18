@@ -128,8 +128,8 @@ public class KourendElite extends ComplexStateQuestHelper
 		doElite.addStep(notCompleteRaid, completeRaidTask);
 
 		defeatSkotizoTask = new ConditionalStep(this, combineDarkTotem);
-		defeatSkotizoTask.addStep(darkTotem.alsoCheckBank(questBank), enterCatacombs);
-		defeatSkotizoTask.addStep(new Conditions(darkTotem.alsoCheckBank(questBank), inCatacombs), enterSkotizoLair);
+		defeatSkotizoTask.addStep(darkTotem.alsoCheckBank(), enterCatacombs);
+		defeatSkotizoTask.addStep(new Conditions(darkTotem.alsoCheckBank(), inCatacombs), enterSkotizoLair);
 		defeatSkotizoTask.addStep(inSkotizoLair, defeatSkotizo);
 		doElite.addStep(notDefeatSkotizo, defeatSkotizoTask);
 
@@ -153,7 +153,7 @@ public class KourendElite extends ComplexStateQuestHelper
 		// Items required
 		pickaxe = new ItemRequirement("Any pickaxe", ItemCollections.PICKAXES)
 			.showConditioned(new Conditions(LogicType.OR, notCraftBloodRune, notCreateTeleport)).isNotConsumed();
-		chisel = new ItemRequirement("Chisel", ItemID.CHISEL)
+		chisel = new ItemRequirement("Chisel", ItemCollections.CHISEL)
 			.showConditioned(new Conditions(LogicType.OR, notCraftBloodRune, notCreateTeleport)).isNotConsumed();
 		chisel.setTooltip("One can be found in the Arceuus essence mine.");
 		axe = new ItemRequirement("Any axe", ItemCollections.AXES).showConditioned(notChopRedwood).isNotConsumed();
@@ -208,23 +208,23 @@ public class KourendElite extends ComplexStateQuestHelper
 
 		anglerCaught = new ChatMessageRequirement(
 			inFish,
-			"<col=0040ff>Achievement Diary Stage Task - Current stage: 1.</col>"
+			"Achievement Diary Stage Task - Current stage: 1."
 		);
 		((ChatMessageRequirement) anglerCaught).setInvalidateRequirement(
 			new ChatMessageRequirement(
 				new Conditions(LogicType.NOR, inFish),
-				"<col=0040ff>Achievement Diary Stage Task - Current stage: 1.</col>"
+				"Achievement Diary Stage Task - Current stage: 1."
 			)
 		);
 
 		barkHarvested = new ChatMessageRequirement(
 			inFarming,
-			"<col=0040ff>Achievement Diary Stage Task - Current stage: 3.</col>"
+			"Achievement Diary Stage Task - Current stage: 3."
 		);
 		((ChatMessageRequirement) barkHarvested).setInvalidateRequirement(
 			new ChatMessageRequirement(
 				new Conditions(LogicType.NOR, inFarming),
-				"<col=0040ff>Achievement Diary Stage Task - Current stage: 3.</col>"
+				"Achievement Diary Stage Task - Current stage: 3."
 			)
 		);
 

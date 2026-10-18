@@ -97,7 +97,7 @@ public class RFDSirAmikVarze extends BasicQuestHelper
 
 		tokenAndEggSteps = new ConditionalStep(this, enterZanaris);
 		tokenAndEggSteps.addStep(tokenNearby, pickUpToken);
-		tokenAndEggSteps.addStep(new Conditions(evilEgg.alsoCheckBank(questBank), inEvilChickenLair), killBlackDragon);
+		tokenAndEggSteps.addStep(new Conditions(evilEgg.alsoCheckBank(), inEvilChickenLair), killBlackDragon);
 		tokenAndEggSteps.addStep(eggNearby, pickUpEgg);
 		tokenAndEggSteps.addStep(inEvilChickenLair, killEvilChicken);
 		tokenAndEggSteps.addStep(inZanaris, useChickenOnShrine);
@@ -114,7 +114,7 @@ public class RFDSirAmikVarze extends BasicQuestHelper
 
 		ConditionalStep saveAmik = new ConditionalStep(this, talkToWom);
 		saveAmik.addStep(new Conditions(inDiningRoom, finishedBrulee), useBruleeOnVarze);
-		saveAmik.addStep(finishedBrulee.alsoCheckBank(questBank), enterDiningRoomAgain);
+		saveAmik.addStep(finishedBrulee.alsoCheckBank(), enterDiningRoomAgain);
 		saveAmik.addStep(hasEggAndToken, makeBrulee);
 		saveAmik.addStep(talkedToWom, tokenAndEggSteps);
 		steps.put(10, saveAmik);
@@ -374,7 +374,7 @@ public class RFDSirAmikVarze extends BasicQuestHelper
 		allSteps.add(tokenAndEggPanel);
 		allSteps.add(new PanelDetails("Making the brulee", Arrays.asList(useMilkOnCream, useCornflourOnMilky, addPodToCornflourMixture,
 			useEggOnBrulee, grindBranch, useCinnamonOnBrulee, rubToken, useBruleeOnVarze),
-			Arrays.asList(bucketOfMilk, potOfCream, cornflourMixture, pestleAndMortar, dramenBranch, vanillaPod, evilEgg, token, iceGloves),
+			Arrays.asList(bucketOfMilk, potOfCream, cornflour, pestleAndMortar, dramenBranch, vanillaPod, evilEgg, token, iceGloves),
 			Arrays.asList(lumbridgeTele)));
 
 		return allSteps;

@@ -33,6 +33,7 @@ import com.questhelper.requirements.Requirement;
 import com.questhelper.requirements.conditional.Conditions;
 import com.questhelper.requirements.item.ItemOnTileRequirement;
 import com.questhelper.requirements.item.ItemRequirement;
+import com.questhelper.requirements.item.ItemRequirements;
 import com.questhelper.requirements.player.SkillRequirement;
 import com.questhelper.requirements.quest.QuestRequirement;
 import com.questhelper.requirements.util.LogicType;
@@ -62,10 +63,10 @@ public class LunarDiplomacy extends BasicQuestHelper
 		bullseyeLanternHighlighted, tinderboxHighlighted, emeraldLensHighlighted, emeraldLanternLitHighlighted, suqahTooth,
 		groundTooth, marrentilPotion, guamPotion, guamMarrentilPotion, guamMarrentilPotionHighlighted, sleepPotion, specialVial,
 		specialVialHighlighted, waterVial, guam, marrentill, pestle, airTalisman, waterTalisman, earthTalisman, fireTalisman,
-		dramenStaff, dramenStaffHighlighted, lunarStaffP1, lunarStaffP1Highlighted, lunarStaffP2, lunarStaffP2Highlighted,
-		lunarStaffP3, lunarStaffP3Highlighted, lunarStaff, pickaxe, hammer, needle, thread, coins400, spade, lunarOre,
-		lunarBar, tiara, helm, amulet, ring, cape, torso, gloves, boots, legs, suqahHide4, kindling, helmEquipped, bodyEquipped,
-		legsEquipped, bootsEquipped, glovesEquipped, cloakEquipped, amuletEquipped, ringEquipped, lunarStaffEquipped, soakedKindling,
+		dramenStaff, dramenStaffHighlighted, lunarStaffP1, lunarStaffP1Highlighted, lunarStaffP2, lunarStaffP2Highlighted, lunarStaffP3,
+		lunarStaffP3Highlighted, lunarStaff, pickaxe, hammer, needle, thread, costumeNeedle, threadNeedle, threadNeedleOrCostumeNeedle,
+		coins400, spade, lunarOre, lunarBar, tiara, helm, amulet, ring, cape, torso, gloves, boots, legs, suqahHide4, kindling, helmEquipped,
+		bodyEquipped, legsEquipped, bootsEquipped, glovesEquipped, cloakEquipped, amuletEquipped, ringEquipped, lunarStaffEquipped, soakedKindling,
 		sleepPotionHighlighted, soakedKindlingHighlighted, sealOfPassageEquipped;
 
 	//Items Recommended
@@ -395,7 +396,11 @@ public class LunarDiplomacy extends BasicQuestHelper
 		pickaxe = new ItemRequirement("Any pickaxe", ItemCollections.PICKAXES).isNotConsumed();
 		hammer = new ItemRequirement("Hammer", ItemCollections.HAMMER).isNotConsumed();
 		needle = new ItemRequirement("Needle", ItemID.NEEDLE).isNotConsumed();
-		thread = new ItemRequirement("Thread", ItemID.THREAD).isNotConsumed();
+		thread = new ItemRequirement("Thread", ItemID.THREAD, 2).isNotConsumed();
+		costumeNeedle = new ItemRequirement("Costume needle", ItemID.COSTUMENEEDLE);
+		threadNeedle = new ItemRequirements(LogicType.AND, "2 x Thread & a Needle", thread, needle);
+		threadNeedleOrCostumeNeedle = new ItemRequirements(LogicType.OR, "2 x Thread & a Needle (or Costume needle)", threadNeedle, costumeNeedle);
+
 		combatGear = new ItemRequirement("Combat gear", -1, -1).isNotConsumed();
 		combatGear.setDisplayItemId(BankSlotIcons.getCombatGear());
 		coins400 = new ItemRequirement("Coins", ItemCollections.COINS, 400);
@@ -498,31 +503,31 @@ public class LunarDiplomacy extends BasicQuestHelper
 
 		inFightArena = new ZoneRequirement(fightArena);
 
-		revealedPillar = new VarbitRequirement(2431, 2);
-		revealedCannon = new VarbitRequirement(2432, 2);
-		revealedCrate = new VarbitRequirement(2433, 2);
-		revealedChart = new VarbitRequirement(2434, 2);
-		revealedChest = new VarbitRequirement(2435, 2);
+		revealedPillar = new VarbitRequirement(VarbitID.LUNAR_QUEST_SYMBOLPRES1, 2);
+		revealedCannon = new VarbitRequirement(VarbitID.LUNAR_QUEST_SYMBOLPRES2, 2);
+		revealedCrate = new VarbitRequirement(VarbitID.LUNAR_QUEST_SYMBOLPRES3, 2);
+		revealedChart = new VarbitRequirement(VarbitID.LUNAR_QUEST_SYMBOLPRES4, 2);
+		revealedChest = new VarbitRequirement(VarbitID.LUNAR_QUEST_SYMBOLPRES5, 2);
 
 		toothNearby = new ItemOnTileRequirement(suqahTooth);
 
-		talkedToSelene = new VarbitRequirement(2445, 1);
-		talkedToMeteora = new VarbitRequirement(2446, 1);
-		talkedToRimae = new VarbitRequirement(2447, 1);
+		talkedToSelene = new VarbitRequirement(VarbitID.LUNAR_MONK_RING_INTRO, 1);
+		talkedToMeteora = new VarbitRequirement(VarbitID.LUNAR_MONK_AMULET_INTRO, 1);
+		talkedToRimae = new VarbitRequirement(VarbitID.LUNAR_MONK_TANCLOTHES_INTRO, 1);
 
 		tiaraNearby = new ItemOnTileRequirement(tiara);
 
-		hadHelm = new Conditions(LogicType.OR, helm.alsoCheckBank(questBank), new VarbitRequirement(2436, 1));
-		hadCape = new Conditions(LogicType.OR, cape.alsoCheckBank(questBank), new VarbitRequirement(2437, 1));
-		hadAmulet = new Conditions(LogicType.OR, amulet.alsoCheckBank(questBank), new VarbitRequirement(2438, 1));
-		hadTorso = new Conditions(LogicType.OR, torso.alsoCheckBank(questBank), new VarbitRequirement(2439, 1));
-		hadGloves = new Conditions(LogicType.OR, gloves.alsoCheckBank(questBank), new VarbitRequirement(2441, 1));
-		hadBoots = new Conditions(LogicType.OR, boots.alsoCheckBank(questBank), new VarbitRequirement(2440, 1));
-		hadLegs = new Conditions(LogicType.OR, legs.alsoCheckBank(questBank), new VarbitRequirement(2442, 1));
-		hadRing = new Conditions(LogicType.OR, ring.alsoCheckBank(questBank), new VarbitRequirement(2443, 1));
+		hadHelm = new Conditions(LogicType.OR, helm.alsoCheckBank(), new VarbitRequirement(VarbitID.LUNAR_PT2_ONEIRO_GIVEN_HELM, 1));
+		hadCape = new Conditions(LogicType.OR, cape.alsoCheckBank(), new VarbitRequirement(VarbitID.LUNAR_PT2_ONEIRO_GIVEN_CAPE, 1));
+		hadAmulet = new Conditions(LogicType.OR, amulet.alsoCheckBank(), new VarbitRequirement(VarbitID.LUNAR_PT2_ONEIRO_GIVEN_AMULET, 1));
+		hadTorso = new Conditions(LogicType.OR, torso.alsoCheckBank(), new VarbitRequirement(VarbitID.LUNAR_PT2_ONEIRO_GIVEN_TORSO, 1));
+		hadGloves = new Conditions(LogicType.OR, gloves.alsoCheckBank(), new VarbitRequirement(VarbitID.LUNAR_PT2_ONEIRO_GIVEN_BOOTS, 1));
+		hadBoots = new Conditions(LogicType.OR, boots.alsoCheckBank(), new VarbitRequirement(VarbitID.LUNAR_PT2_ONEIRO_GIVEN_GLOVES, 1));
+		hadLegs = new Conditions(LogicType.OR, legs.alsoCheckBank(), new VarbitRequirement(VarbitID.LUNAR_PT2_ONEIRO_GIVEN_TROUSERS, 1));
+		hadRing = new Conditions(LogicType.OR, ring.alsoCheckBank(), new VarbitRequirement(VarbitID.LUNAR_PT2_ONEIRO_GIVEN_RING, 1));
 		hadClothes = new Conditions(hadBoots, hadTorso, hadGloves, hadLegs);
 
-		litBrazier = new VarbitRequirement(2430, 1);
+		litBrazier = new VarbitRequirement(VarbitID.LUNAR_BRAZIER_LIT, 1);
 
 		inCentreOfDream = new ZoneRequirement(centreOfDream);
 		inChanceDream = new ZoneRequirement(chanceDream);
@@ -532,12 +537,12 @@ public class LunarDiplomacy extends BasicQuestHelper
 		inRaceDream = new ZoneRequirement(raceDream);
 		inMimicDream = new ZoneRequirement(mimicDream);
 
-		doingTreeChallenge = new VarbitRequirement(3184, 1);
-		startedRaceChallenge = new VarbitRequirement(2424, 1);
+		doingTreeChallenge = new VarbitRequirement(VarbitID.LUNAR_TREE_PLAYING, 1);
+		startedRaceChallenge = new VarbitRequirement(VarbitID.LUNAR_SKILL_INTRO, 1);
 
-		startedNumberChallenge = new VarbitRequirement(2416, 1);
+		startedNumberChallenge = new VarbitRequirement(VarbitID.LUNAR_NUM_INTRO, 1);
 
-		needToTalkAtMiddle = new VarbitRequirement(2429, 1);
+		needToTalkAtMiddle = new VarbitRequirement(VarbitID.LUNAR_SPOKEN_CENTRE, 1);
 
 		finishedMimic = new VarbitRequirement(VarbitID.LUNAR_EMOTE_PROG, 5, Operation.GREATER_EQUAL);
 		finishedNumbers = new VarbitRequirement(VarbitID.LUNAR_NUM_PROG, 6, Operation.GREATER_EQUAL);
@@ -733,10 +738,10 @@ public class LunarDiplomacy extends BasicQuestHelper
 
 		digForRing = new DigStep(this, new WorldPoint(2078, 3863, 0), "Dig in the south west of Lunar Isle for the ring.");
 		talkToRimae = new NpcStep(this, NpcID.LUNAR_MOONCLAN_MONK5, new WorldPoint(2104, 3909, 0),
-			"Talk to Rimae in the east of Lunar Isle's town.", sealOfPassage, suqahHide4, coins400, needle, thread);
+			"Talk to Rimae in the east of Lunar Isle's town.", sealOfPassage, suqahHide4, coins400, threadNeedleOrCostumeNeedle);
 		talkToRimae.addDialogStep("You know the ceremonial clothes?");
 		makeClothes = new NpcStep(this, NpcID.LUNAR_MOONCLAN_MONK5, new WorldPoint(2104, 3909, 0),
-			"Have Rimae in the east of Lunar Isle's town tan 4 suqah hides, and craft them into the torso, gloves, boots and legs.", sealOfPassage, suqahHide4, coins400, needle, thread);
+			"Have Rimae in the east of Lunar Isle's town tan 4 suqah hides, and craft them into the torso, gloves, boots and legs.", sealOfPassage, suqahHide4, coins400, threadNeedleOrCostumeNeedle);
 		makeClothes.addDialogSteps("You know the ceremonial clothes?", "That seems like a fair deal.");
 
 		bringItemsToOneiromancer = new BringLunarItems(this);
@@ -854,8 +859,8 @@ public class LunarDiplomacy extends BasicQuestHelper
 	@Override
 	public List<ItemRequirement> getItemRequirements()
 	{
-		return Arrays.asList(bullseyeLantern, tinderboxHighlighted, guam, marrentill, dramenStaff, airTalisman, earthTalisman,
-			fireTalisman, waterTalisman, pickaxe, pestle, hammer, thread, needle, spade);
+		return Arrays.asList(bullseyeLantern, coins400, tinderboxHighlighted, guam, marrentill, dramenStaff, airTalisman, earthTalisman,
+			fireTalisman, waterTalisman, pickaxe, pestle, hammer, threadNeedleOrCostumeNeedle, spade);
 	}
 
 	@Override
@@ -957,7 +962,7 @@ public class LunarDiplomacy extends BasicQuestHelper
 		allSteps.add(gettingRingPanel);
 
 		PanelDetails gettingClothingPanel = new PanelDetails("Making the clothing", Collections.singletonList(
-			makeClothes), coins400, needle, thread, suqahHide4);
+			makeClothes), coins400, threadNeedleOrCostumeNeedle, suqahHide4);
 		gettingClothingPanel.setLockingStep(gettingClothes);
 		allSteps.add(gettingClothingPanel);
 

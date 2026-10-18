@@ -106,7 +106,7 @@ public class ArdougneElite extends ComplexStateQuestHelper
 
 		imbueSalveTask = new ConditionalStep(this, farmMorePoints);
 		imbueSalveTask.addStep(enoughNMZPoints, imbueSalve);
-		imbueSalveTask.addStep(imbuedSalve.alsoCheckBank(questBank), equipSalve);
+		imbueSalveTask.addStep(imbuedSalve.alsoCheckBank(), equipSalve);
 		doElite.addStep(notImbueSalve, imbueSalveTask);
 
 		trawlerRayTask = new ConditionalStep(this, trawlerRay);
@@ -119,11 +119,11 @@ public class ArdougneElite extends ComplexStateQuestHelper
 		doElite.addStep(notPickHero, pickHeroTask);
 
 		runeCrossbowTask = new ConditionalStep(this, spinString);
-		runeCrossbowTask.addStep(new Conditions(madeString, crossbowString), moveToYan);
-		runeCrossbowTask.addStep(new Conditions(inYanille, madeString, crossbowString), smithLimbs);
-		runeCrossbowTask.addStep(new Conditions(inYanille, madeLimbs, crossbowString, runeLimbs), fletchStock);
-		runeCrossbowTask.addStep(new Conditions(inYanille, madeStock, crossbowString, runeLimbs, yewStock), makeUnstrungCross);
 		runeCrossbowTask.addStep(new Conditions(inYanille, madeCrossU, runeCrossbowU, crossbowString), runeCrossbow);
+		runeCrossbowTask.addStep(new Conditions(inYanille, madeStock, crossbowString, runeLimbs, yewStock), makeUnstrungCross);
+		runeCrossbowTask.addStep(new Conditions(inYanille, madeLimbs, crossbowString, runeLimbs), fletchStock);
+		runeCrossbowTask.addStep(new Conditions(inYanille, madeString, crossbowString), smithLimbs);
+		runeCrossbowTask.addStep(new Conditions(madeString, crossbowString), moveToYan);
 		doElite.addStep(notRuneCrossbow, runeCrossbowTask);
 
 		return doElite;
@@ -182,45 +182,45 @@ public class ArdougneElite extends ComplexStateQuestHelper
 
 		madeString = new ChatMessageRequirement(
 			inWitchaven,
-			"<col=0040ff>Achievement Diary Stage Task - Current stage: 1.</col>"
+			"Achievement Diary Stage Task - Current stage: 1."
 		);
 		((ChatMessageRequirement) madeString).setInvalidateRequirement(
 			new ChatMessageRequirement(
 				new Conditions(LogicType.NOR, inWitchaven),
-				"<col=0040ff>Achievement Diary Stage Task - Current stage: 1.</col>"
+				"Achievement Diary Stage Task - Current stage: 1."
 			)
 		);
 
 		madeLimbs = new ChatMessageRequirement(
 			inYanille,
-			"<col=0040ff>Achievement Diary Stage Task - Current stage: 2.</col>"
+			"Achievement Diary Stage Task - Current stage: 2."
 		);
 		((ChatMessageRequirement) madeLimbs).setInvalidateRequirement(
 			new ChatMessageRequirement(
 				new Conditions(LogicType.NOR, inYanille),
-				"<col=0040ff>Achievement Diary Stage Task - Current stage: 2.</col>"
+				"Achievement Diary Stage Task - Current stage: 2."
 			)
 		);
 
 		madeStock = new ChatMessageRequirement(
 			inYanille,
-			"<col=0040ff>Achievement Diary Stage Task - Current stage: 3.</col>"
+			"Achievement Diary Stage Task - Current stage: 3."
 		);
 		((ChatMessageRequirement) madeStock).setInvalidateRequirement(
 			new ChatMessageRequirement(
 				new Conditions(LogicType.NOR, inYanille),
-				"<col=0040ff>Achievement Diary Stage Task - Current stage: 3.</col>"
+				"Achievement Diary Stage Task - Current stage: 3."
 			)
 		);
 
 		madeCrossU = new ChatMessageRequirement(
 			inYanille,
-			"<col=0040ff>Achievement Diary Stage Task - Current stage: 4.</col>"
+			"Achievement Diary Stage Task - Current stage: 4."
 		);
 		((ChatMessageRequirement) madeCrossU).setInvalidateRequirement(
 			new ChatMessageRequirement(
 				new Conditions(LogicType.NOR, inYanille),
-				"<col=0040ff>Achievement Diary Stage Task - Current stage: 4.</col>"
+				"Achievement Diary Stage Task - Current stage: 4."
 			)
 		);
 

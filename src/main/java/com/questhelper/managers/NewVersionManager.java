@@ -44,8 +44,7 @@ public class NewVersionManager
 
 	private final String LAST_VERSION_SEEN_CONFIG_KEY = "lastversionchecked";
 
-	private final String UPDATE_CHAT_TEXT = "Quest Helper has been updated to 4.7.0! This adds the new Varlamore quests! This also adds an " +
-			"integration with the Shortest Path plugin, which can be enabled in the config settings.";
+	private final String UPDATE_CHAT_TEXT = "Quest Helper has been updated to 4.18.0! <col=FF2400>Crab Quest</col> (ty maskarauder!) and <col=123456>A Ruff Situation</col> (ty leafyboat and pajlada!) are now both added!";
 
 	public void updateChatWithNotificationIfNewVersion()
 	{

@@ -147,7 +147,7 @@ public class KandarinElite extends ComplexStateQuestHelper
 		spade = new ItemRequirement("Spade", ItemID.SPADE).showConditioned(notPickDwarf).isNotConsumed();
 		rake = new ItemRequirement("Rake", ItemID.RAKE).showConditioned(notPickDwarf).isNotConsumed();
 		compost = new ItemRequirement("Any compost", ItemCollections.COMPOST).showConditioned(notPickDwarf);
-		harpoon = new ItemRequirement("Harpoon", ItemID.HARPOON).showConditioned(not5Shark).isNotConsumed();
+		harpoon = new ItemRequirement("Harpoon", ItemCollections.HARPOONS).showConditioned(not5Shark).isNotConsumed();
 		cookingGaunt = new ItemRequirement("Cooking gauntlets", ItemID.GAUNTLETS_OF_COOKING).showConditioned(not5Shark).isNotConsumed();
 		stamPot = new ItemRequirement("Stamina potion (2)", ItemID._2DOSESTAMINA).showConditioned(notStamMix);
 		caviar = new ItemRequirement("Caviar", ItemID.BRUT_CAVIAR).showConditioned(notStamMix);
@@ -180,12 +180,12 @@ public class KandarinElite extends ComplexStateQuestHelper
 
 		fishedSharks = new ChatMessageRequirement(
 			inCatherby,
-			"<col=0040ff>Achievement Diary Stage Task - Current stage: 5 caught, 0 cooked.</col>"
+			"Achievement Diary Stage Task - Current stage: 5 caught, 0 cooked."
 		);
 		((ChatMessageRequirement) fishedSharks).setInvalidateRequirement(
 			new ChatMessageRequirement(
 				new Conditions(LogicType.NOR, inCatherby),
-				"<col=0040ff>Achievement Diary Stage Task - Current stage: 5 caught, 0 cooked.</col>"
+				"Achievement Diary Stage Task - Current stage: 5 caught, 0 cooked."
 			)
 		);
 	}

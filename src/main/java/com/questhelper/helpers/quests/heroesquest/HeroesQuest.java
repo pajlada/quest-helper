@@ -198,8 +198,8 @@ public class HeroesQuest extends BasicQuestHelper
 		fishingRod.addAlternates(ItemID.OILY_FISHING_ROD);
 		fishingBait = new ItemRequirement("Fishing bait", ItemID.FISHING_BAIT);
 		jailKey = new ItemRequirement("Jail key", ItemID.JAIL_KEY).isNotConsumed();
-		dustyKey = new KeyringRequirement("Dusty Key", configManager, KeyringCollection.DUSTY_KEY).isNotConsumed();
-		dustyKeyHint = new KeyringRequirement("Dusty key (obtainable in quest)", configManager, KeyringCollection.DUSTY_KEY).isNotConsumed();
+		dustyKey = new KeyringRequirement("Dusty Key", KeyringCollection.DUSTY_KEY).isNotConsumed();
+		dustyKeyHint = new KeyringRequirement("Dusty key (obtainable in quest)", KeyringCollection.DUSTY_KEY).isNotConsumed();
 		harralanderUnf = new ItemRequirement("Harralander potion (unf)", ItemID.HARRALANDERVIAL);
 		pickaxe = new ItemRequirement("Any pickaxe", ItemID.BRONZE_PICKAXE).isNotConsumed();
 		pickaxe.addAlternates(ItemCollections.PICKAXES);
@@ -296,7 +296,7 @@ public class HeroesQuest extends BasicQuestHelper
 		gottenPapers = new VarplayerRequirement(VarPlayerID.HEROQUEST, 9, Operation.GREATER_EQUAL);
 		enteredMansion = new VarplayerRequirement(VarPlayerID.HEROQUEST, 10, Operation.GREATER_EQUAL);
 		talkedToGrip = new VarplayerRequirement(VarPlayerID.HEROQUEST, 11, Operation.GREATER_EQUAL);
-		unlockedCandlestickBlackArm = new VarplayerRequirement(188, 12);
+		unlockedCandlestickBlackArm = new VarplayerRequirement(VarPlayerID.HEROQUEST, 12);
 		finishedBlackArm = new VarplayerRequirement(VarPlayerID.HEROQUEST, 13, Operation.GREATER_EQUAL);
 		talkedToStraven = new VarplayerRequirement(VarPlayerID.HEROQUEST, 2, Operation.GREATER_EQUAL);
 		talkedToAlfonse = new VarplayerRequirement(VarPlayerID.HEROQUEST, 3, Operation.GREATER_EQUAL);
@@ -423,7 +423,7 @@ public class HeroesQuest extends BasicQuestHelper
 		takeLadder2Up = new ObjectStep(this, ObjectID.LADDER_FROM_CELLAR, new WorldPoint(2824, 9907, 0), "Follow the tunnel south, then go up the ladder there.");
 		takeLadder3Down = new ObjectStep(this, ObjectID.LADDER_OUTSIDE_TO_UNDERGROUND, new WorldPoint(2827, 3510, 0), "Take the east ladder down.");
 		takeLadder4Up = new ObjectStep(this, ObjectID.LADDER_FROM_CELLAR, new WorldPoint(2857, 9917, 0), "Follow the path around until you reach a ladder, then climb it.");
-		takeLadder5Down = new ObjectStep(this, ObjectID.LADDER_OUTSIDE_TO_UNDERGROUND, new WorldPoint(2859, 3519, 0), "Take the south ladder down.");
+		takeLadder5Down = new ObjectStep(this, ObjectID.LADDER_OUTSIDE_TO_UNDERGROUND, new WorldPoint(2859, 3519, 0), "Take the north ladder down.");
 		killIceQueen = new NpcStep(this, NpcID.ICE_QUEEN, new WorldPoint(2865, 9948, 0), "Kill the Ice Queen for ice gloves.");
 		pickupIceGloves = new DetailedQuestStep(this, "Pick up the ice gloves.", iceGloves);
 		killIceQueen.addSubSteps(pickupIceGloves);
@@ -442,6 +442,7 @@ public class HeroesQuest extends BasicQuestHelper
 	{
 		ArrayList<String> reqs = new ArrayList<>();
 		reqs.add("Ice Queen (level 111) for ice gloves");
+		reqs.add("Entrana firebird (level 2)");
 		if (!inBlackArmGang.check(client))
 		{
 			reqs.add("Grip (level 26)");

@@ -32,7 +32,6 @@ import com.questhelper.requirements.util.LogicType;
 import com.questhelper.steps.DetailedOwnerStep;
 import com.questhelper.steps.QuestStep;
 import net.runelite.api.Client;
-import net.runelite.api.GraphicID;
 import net.runelite.api.GraphicsObject;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldPoint;
@@ -41,6 +40,7 @@ import net.runelite.api.events.GraphicsObjectCreated;
 import net.runelite.api.events.WidgetLoaded;
 import net.runelite.api.gameval.InterfaceID;
 import net.runelite.api.gameval.ItemID;
+import net.runelite.api.gameval.SpotanimID;
 import net.runelite.api.widgets.Widget;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.eventbus.Subscribe;
@@ -142,7 +142,7 @@ public class BaxtorianPuzzle extends DetailedOwnerStep
 	{
 		final GraphicsObject go = event.getGraphicsObject();
 
-		if (go.getId() == GraphicID.GREY_BUBBLE_TELEPORT)
+		if (go.getId() == SpotanimID.SMOKEPUFF)
 		{
 			clientThread.invokeLater(() ->
 			{
@@ -242,7 +242,7 @@ public class BaxtorianPuzzle extends DetailedOwnerStep
 		adamantChainbody = new ItemRequirement("Adamant chainbody", ItemID.ADAMANT_CHAINBODY);
 		adamantChainbody.setHighlightInInventory(true);
 
-		wineOfZamorak = new ItemRequirement("Wine of zamorak", ItemID.WINE_OF_ZAMORAK);
+		wineOfZamorak = new ItemRequirement("Wine of Zamorak", ItemID.WINE_OF_ZAMORAK);
 
 		ItemRequirement zamorakBrew1 = new ItemRequirement("Zamorak brew(1)", ItemID._1DOSEPOTIONOFZAMORAK);
 		ItemRequirement zamorakBrew2 = new ItemRequirement("Zamorak brew(2)", ItemID._2DOSEPOTIONOFZAMORAK);
@@ -252,7 +252,7 @@ public class BaxtorianPuzzle extends DetailedOwnerStep
 		zamorakBrew = new ItemRequirements("Zamorak brew", zamorakBrew1, zamorakBrew2, zamorakBrew3, zamorakBrew4);
 		zamorakBrew.setDisplayMatchedItemName(true);
 
-		wineOfZamorakOrZamorakBrew = new ItemRequirements(LogicType.OR, "Wine of zamorak or Zamorak brew", wineOfZamorak, zamorakBrew);
+		wineOfZamorakOrZamorakBrew = new ItemRequirements(LogicType.OR, "Wine of Zamorak or Zamorak brew", wineOfZamorak, zamorakBrew);
 		wineOfZamorakOrZamorakBrew.setHighlightInInventory(true);
 
 		cabbage = new ItemRequirement("Cabbage", ItemID.CABBAGE);

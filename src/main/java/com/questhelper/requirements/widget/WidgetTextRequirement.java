@@ -32,6 +32,7 @@ import lombok.Getter;
 import lombok.Setter;
 import net.runelite.api.Client;
 import net.runelite.api.annotations.Component;
+import net.runelite.api.gameval.InterfaceID;
 import net.runelite.api.widgets.Widget;
 
 import javax.annotation.Nonnull;
@@ -125,6 +126,13 @@ public class WidgetTextRequirement extends SimpleRequirement
 		this.text = Arrays.asList(text);
 	}
 
+	/// Checks for the text in the chat / message box.
+	///
+	/// Usually used when the player right-click checks a game object or item in their inventory.
+	public static WidgetTextRequirement messageBox(String... text) {
+		return new WidgetTextRequirement(InterfaceID.Messagebox.TEXT, text);
+	}
+
 	public void addRange(int min, int max)
 	{
 		this.min = min;
@@ -148,17 +156,24 @@ public class WidgetTextRequirement extends SimpleRequirement
 			}
 			if (widget != null)
 			{
+				if (widget.isHidden())
+				{
+					return false;
+				}
+
+				var widgetText = client.macroExpand(widget.getText());
+
 				for (String textOption : text)
 				{
 					if (checkChildren)
 					{
-						if (getChildren(widget, textOption) && !widget.isHidden())
+						if (getChildren(client, widget, textOption))
 						{
 							return true;
 						}
 					}
 
-					if (widget.getText().contains(textOption) && !widget.isHidden())
+					if (widgetText.contains(textOption))
 					{
 						return true;
 					}
@@ -168,7 +183,7 @@ public class WidgetTextRequirement extends SimpleRequirement
 		return false;
 	}
 
-	private boolean getChildren(Widget parentWidget, String textOption)
+	private boolean getChildren(Client client, Widget parentWidget, String textOption)
 	{
 		Widget[] children = parentWidget.getStaticChildren();
 		if (children.length == 0)
@@ -194,25 +209,21 @@ public class WidgetTextRequirement extends SimpleRequirement
 			Widget currentWidget = parentWidget.getStaticChildren()[i];
 			if (currentWidget.getNestedChildren() != null)
 			{
-				if (currentWidget.getText().contains(textOption))
+				var widgetText = client.macroExpand(currentWidget.getText());
+				if (widgetText.contains(textOption))
 				{
 					return true;
 				}
 			}
 			else
 			{
-				if (getChildren(currentWidget, textOption))
+				if (getChildren(client, currentWidget, textOption))
 				{
 					return true;
 				}
 			}
 		}
 		return false;
-	}
-
-	public void checkWidgetText(Client client)
-	{
-		hasPassed = hasPassed || checkWidget(client);
 	}
 
 	@Nonnull
