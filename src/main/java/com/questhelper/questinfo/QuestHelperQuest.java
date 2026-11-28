@@ -247,6 +247,7 @@ import com.questhelper.helpers.quests.thegardenofdeath.TheGardenOfDeath;
 import com.questhelper.helpers.quests.thegiantdwarf.TheGiantDwarf;
 import com.questhelper.helpers.quests.thegolem.TheGolem;
 import com.questhelper.helpers.quests.thegrandtree.TheGrandTree;
+import com.questhelper.helpers.quests.thegraveyard.TheGraveyard;
 import com.questhelper.helpers.quests.thegreatbrainrobbery.TheGreatBrainRobbery;
 import com.questhelper.helpers.quests.thehandinthesand.TheHandInTheSand;
 import com.questhelper.helpers.quests.theheartofdarkness.TheHeartOfDarkness;
@@ -494,6 +495,7 @@ public enum QuestHelperQuest
 	THE_RED_REEF(new TheRedReef(), Quest.THE_RED_REEF, QuestVarbits.QUEST_THE_RED_REEF, QuestDetails.Type.P2P, QuestDetails.Difficulty.EXPERIENCED),
 	THE_BLOOD_MOON_RISES(new TheBloodMoonRises(), Quest.THE_BLOOD_MOON_RISES, QuestVarbits.QUEST_THE_BLOOD_MOON_RISES, QuestDetails.Type.P2P, QuestDetails.Difficulty.GRANDMASTER),
 	FALLEN_FROM_GRACE(new FallenFromGrace(), Quest.FALLEN_FROM_GRACE, QuestVarbits.QUEST_FALLEN_FROM_GRACE, QuestDetails.Type.P2P, QuestDetails.Difficulty.EXPERIENCED),
+	THE_GRAVEYARD(new TheGraveyard(), Quest.THE_GRAVEYARD, QuestVarbits.QUEST_THE_GRAVEYARD, QuestDetails.Type.P2P, QuestDetails.Difficulty.MASTER),
 	//Miniquests
 	ENTER_THE_ABYSS(new EnterTheAbyss(), Quest.ENTER_THE_ABYSS, QuestVarPlayer.QUEST_ENTER_THE_ABYSS, QuestDetails.Type.MINIQUEST, QuestDetails.Difficulty.MINIQUEST),
 	BEAR_YOUR_SOUL(new BearYourSoul(), Quest.BEAR_YOUR_SOUL, QuestVarbits.QUEST_BEAR_YOUR_SOUL, QuestDetails.Type.MINIQUEST, QuestDetails.Difficulty.MINIQUEST),

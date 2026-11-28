@@ -134,6 +134,7 @@ public enum QuestVarbits
 	QUEST_THE_BLOOD_MOON_RISES(VarbitID.MYQ6),
 	QUEST_FALLEN_FROM_GRACE(VarbitID.FFG),
 	QUEST_CRAB_QUEST(VarbitID.CRAB_MAIN),
+	QUEST_THE_GRAVEYARD(VarbitID.GRAVEYARD),
 	/**
 	 * mini-quest varbits, these don't hold the completion value.
 	 */
